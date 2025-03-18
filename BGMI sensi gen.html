@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BGMI Sensitivity Settings Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        select {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 6px;
+            background: #333;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff4500;
+        }
+
+        .output {
+            background: #292929;
+            color: #f4f4f4;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            border-radius: 6px;
+            font-size: 14px;
+            overflow-x: auto;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .output p {
+            margin: 5px 0;
+            font-weight: bold;
+            color: #ff6600;
+        }
+
+        .output ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .output li {
+            padding: 5px 0;
+            border-bottom: 1px solid #444;
+        }
+    </style>
+    <script>
+        const SENSITIVITY_SETTINGS = {
+            "Camera Sensitivity (Non-Gyroscope)": {
+                "3rd Person No Scope": 120, "1st Person No Scope": 115, "Red Dot, Holographic, Iron Sight": 60,
+                "2x Scope": 50, "3x Scope": 40, "4x Scope": 30, "6x Scope": 20, "8x Scope": 10
+            },
+            "ADS Sensitivity (Non-Gyroscope)": {
+                "3rd Person No Scope": 100, "1st Person No Scope": 90, "Red Dot, Holographic, Iron Sight": 55,
+                "2x Scope": 45, "3x Scope": 35, "4x Scope": 25, "6x Scope": 15, "8x Scope": 8
+            },
+            "Gyroscope Sensitivity": {
+                "3rd Person No Scope": 300, "1st Person No Scope": 295, "Red Dot, Holographic, Iron Sight": 285,
+                "2x Scope": 280, "3x Scope": 250, "4x Scope": 200, "6x Scope": 140, "8x Scope": 100
+            },
+            "ADS Gyroscope Sensitivity": {
+                "3rd Person No Scope": 300, "1st Person No Scope": 295, "Red Dot, Holographic, Iron Sight": 280,
+                "2x Scope": 275, "3x Scope": 245, "4x Scope": 195, "6x Scope": 135, "8x Scope": 90
+            }
+        };
+
+        const DEVICES = [
+            "iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15 Plus", "iPhone 15",
+            "iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14",
+            "iPhone 13 Pro Max", "iPhone 13 Pro", "iPhone 13", "VIVO V25 Pro"
+        ];
+
+        function loadDevices() {
+            const select = document.getElementById("deviceSelect");
+            DEVICES.forEach(device => {
+                let option = document.createElement("option");
+                option.value = device;
+                option.textContent = device;
+                select.appendChild(option);
+            });
+        }
+
+        function generateSensitivity() {
+            const selectedDevice = document.getElementById("deviceSelect").value;
+            if (!selectedDevice) {
+                document.getElementById("output").innerHTML = "<p>Please select a device.</p>";
+                return;
+            }
+
+            let outputHTML = `<p>Device: ${selectedDevice}</p>`;
+
+            Object.keys(SENSITIVITY_SETTINGS).forEach(category => {
+                outputHTML += `<p>${category}</p><ul>`;
+                Object.entries(SENSITIVITY_SETTINGS[category]).forEach(([scope, value]) => {
+                    outputHTML += `<li>${scope}: ${value}</li>`;
+                });
+                outputHTML += `</ul>`;
+            });
+
+            document.getElementById("output").innerHTML = outputHTML;
+        }
+
+        window.onload = loadDevices;
+    </script>
+</head>
+<body>
+
+    <h2>BGMI Sensitivity Settings Generator</h2>
+
+    <div class="container">
+        <label for="deviceSelect">Select Your Device:</label>
+        <select id="deviceSelect">
+            <option value="">-- Choose a device --</option>
+        </select>
+
+        <br>
+        <button onclick="generateSensitivity()">Generate Sensitivity</button>
+
+        <h3>Generated Sensitivity Settings:</h3>
+        <div class="output" id="output">Select a device and click the button.</div>
+    </div>
+
+</body>
+</html>
