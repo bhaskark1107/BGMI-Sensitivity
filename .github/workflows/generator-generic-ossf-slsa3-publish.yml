@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BGMI Sensitivity Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        pre {
+            text-align: left;
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>BGMI Sensitivity Settings Generator</h2>
+        <label for="device">Select Your Device:</label>
+        <select id="device">
+            <option value="iPhone 15 Pro Max">iPhone 15 Pro Max</option>
+            <option value="iPhone 15 Pro">iPhone 15 Pro</option>
+            <option value="iPhone 15 Plus">iPhone 15 Plus</option>
+            <option value="iPhone 15">iPhone 15</option>
+            <option value="VIVO V25 Pro">VIVO V25 Pro</option>
+        </select>
+        <button onclick="generateSettings()">Generate Settings</button>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        function generateSettings() {
+            const device = document.getElementById('device').value;
+            const settings = {
+                "Camera Sensitivity (Non-Gyroscope)": {
+                    "3rd Person No Scope": 120,
+                    "1st Person No Scope": 115,
+                    "Red Dot, Holographic": 60,
+                    "2x Scope": 50,
+                    "3x Scope": 40,
+                    "4x Scope": 30,
+                    "6x Scope": 20,
+                    "8x Scope": 10
+                },
+                "ADS Sensitivity (Non-Gyroscope)": {
+                    "3rd Person No Scope": 100,
+                    "1st Person No Scope": 90,
+                    "Red Dot, Holographic": 55,
+                    "2x Scope": 45,
+                    "3x Scope": 35,
+                    "4x Scope": 25,
+                    "6x Scope": 15,
+                    "8x Scope": 8
+                },
+                "Gyroscope Sensitivity": {
+                    "3rd Person No Scope": 300,
+                    "1st Person No Scope": 295,
+                    "Red Dot, Holographic": 285,
+                    "2x Scope": 280,
+                    "3x Scope": 250,
+                    "4x Scope": 200,
+                    "6x Scope": 140,
+                    "8x Scope": 100
+                },
+                "ADS Gyroscope Sensitivity": {
+                    "3rd Person No Scope": 300,
+                    "1st Person No Scope": 295,
+                    "Red Dot, Holographic": 280,
+                    "2x Scope": 275,
+                    "3x Scope": 245,
+                    "4x Scope": 195,
+                    "6x Scope": 135,
+                    "8x Scope": 90
+                }
+            };
+            const output = {
+                "Device": device,
+                "Sensitivity": settings
+            };
+            document.getElementById('output').textContent = JSON.stringify(output, null, 4);
+        }
+    </script>
+</body>
+</html>
